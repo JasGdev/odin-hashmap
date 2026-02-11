@@ -2,10 +2,10 @@ import { LinkedList } from "./LinkedList.js";
 
 export class HashMap {
 	constructor(loadFactor, capacity) {
+		this.defaultCapacity = capacity
 		this.loadFactor = loadFactor;
-		this.capacity = capacity;
+		this.currentCapacity = capacity;
 		this.bucketArray = new Array(capacity);
-		this.growthLimit = this.loadFactor * this.capacity;
 		this.currentItems = 0;
 	}
 
@@ -13,7 +13,7 @@ export class HashMap {
 		let hashCode = 0;
 		const primeNumber = 31;
 		for (let i = 0; i < key.length; i++) {
-			hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
+			hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.currentCapacity;
 		}
 		return hashCode;
 	}
@@ -74,6 +74,7 @@ export class HashMap {
 			for (const linkedList of this.bucketArray) {
 			if (linkedList != undefined) {
 				if (linkedList.containKey(key)) {
+					this.currentItems -= 1; 
 					linkedList.removeAtKey(key)
 					return true
 				}
@@ -81,8 +82,16 @@ export class HashMap {
 		}
 		}
 	}
-	length() {}
-	clear() {}
+
+	length() {
+		return this.currentItems
+	}
+	clear() {
+		this.bucketArray = new Array(this.defaultCapacity)
+		this.currentItems = 0;
+		this.currentCapacity = this.defaultCapacity;
+	}
+	
 	keys() {}
 	values() {}
 	entries() {}

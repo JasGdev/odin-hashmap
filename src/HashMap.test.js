@@ -105,3 +105,44 @@ describe("remove() implementation", () => {
 
 	});
 });
+
+describe("length() implementation", () => {
+	test("length on 2 items no collision", () => {
+        const key1 = 'Jason'
+        const key2 = 'Charles'
+        expect(hashMap.length()).toBe(0)
+		hashMap.set(key1, "22");
+        expect(hashMap.length()).toBe(1)
+        hashMap.set(key2, "33");
+        expect(hashMap.length()).toBe(2)
+        
+        
+        expect(hashMap.remove(key1)).toBe(true)
+        expect(hashMap.length()).toBe(1)
+        expect(hashMap.remove(key2)).toBe(true)
+        expect(hashMap.length()).toBe(0)
+	});
+});
+
+describe("clear() implementation", () => {
+	test("length on 2 items no collision", () => {
+        const key1 = 'Jason'
+        const key2 = 'Charles'
+        expect(hashMap.length()).toBe(0)
+		hashMap.set(key1, "22");
+        expect(hashMap.length()).toBe(1)
+        hashMap.set(key2, "33");
+        expect(hashMap.length()).toBe(2)
+        
+        let newHashMap = new HashMap(0.75, 16);
+        
+        hashMap.clear()
+
+        expect(hashMap.currentItems == newHashMap.currentItems).toEqual(true)
+        expect(hashMap.bucketArray.every(bucket => bucket == null)).toEqual(true)
+        expect(hashMap.bucketArray.length == hashMap.defaultCapacity).toEqual(true)
+        expect(hashMap.currentCapacity == newHashMap.currentCapacity).toEqual(true)
+        expect(hashMap.defaultCapacity == newHashMap.defaultCapacity).toEqual(true)
+
+	});
+});
