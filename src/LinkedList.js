@@ -73,7 +73,6 @@ export class LinkedList {
 		} 
 	}
 
-	// return index of first node containing the value, if not found return -1
 	findIndexKey(keyToFind) {
 		if (this.containKey(keyToFind) == false) {
 			throw new Error("The key is not in the bucket!");
@@ -87,6 +86,58 @@ export class LinkedList {
 			return index
 		}
 	}
+
+	getKeyList(){
+		let keyList = []
+		if (this.headNode == null){ return keyList}
+		let currentNode = this.headNode;
+		
+		while (currentNode.nextNode != null) {
+			keyList.push(currentNode.key)
+			currentNode = currentNode.nextNode;
+		}
+		keyList.push(currentNode.key)
+		return keyList
+	}
+
+	getValueList(){
+		let valueList = []
+		if (this.headNode == null){ return valueList}
+		let currentNode = this.headNode;
+		
+		while (currentNode.nextNode != null) {
+			valueList.push(currentNode.value)
+			currentNode = currentNode.nextNode;
+		}
+		valueList.push(currentNode.value)
+		return valueList
+	}
+
+	getEntriesList(){
+		let entriesList = []
+		if (this.headNode == null){ return entriesList}
+		let currentNode = this.headNode;
+		
+		while (currentNode.nextNode != null) {
+			entriesList.push([currentNode.key, currentNode.value])
+			currentNode = currentNode.nextNode;
+		}
+		entriesList.push([currentNode.key, currentNode.value])
+		return entriesList
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// base LinkedList methods
 	size() {

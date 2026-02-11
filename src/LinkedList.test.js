@@ -109,3 +109,15 @@ describe("removeAtKey() implementation", () => {
 		expect(list.toString()).toEqual( "( 1 ) -> ( 2 ) -> null");
 	});
 });
+
+describe("getKeyList(), getValueList(), getEntriesList() implementation", () => {
+	test("getKeyList, getValueList, getEntriesList on a Linked List size 3", () => {
+		list.append("key1", 1);
+		list.append("key2", 2);
+		list.append("key3", 3);
+		
+		expect(list.getKeyList()).toEqual(["key1", "key2", "key3"]);
+		expect(list.getValueList()).toEqual([1, 2, 3]);
+		expect(list.getEntriesList()).toEqual([["key1", 1], ["key2", 2], ["key3", 3]]);
+	});
+});

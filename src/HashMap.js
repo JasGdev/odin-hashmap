@@ -91,7 +91,15 @@ export class HashMap {
 		this.currentCapacity = this.defaultCapacity;
 	}
 
-	keys() {}
+	keys() {
+		let keyArray = [];
+		for (linkedList of this.bucketArray){
+			if (linkedList != undefined){
+				keyArray.push(linkedList.getKeyList())
+			}
+		}
+	}
+
 	values() {}
 	entries() {}
 }
