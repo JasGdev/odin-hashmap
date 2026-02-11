@@ -137,7 +137,7 @@ export class LinkedList {
 	}
 
 	// return index of first node containing the value, if not found return -1
-	findIndex(val) {
+	findIndexValue(val) {
 		if (this.headNode == null) {
 			return -1;
 		} else {

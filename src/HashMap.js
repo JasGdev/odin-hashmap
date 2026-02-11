@@ -23,19 +23,17 @@ export class HashMap {
 		if (index < 0 || index >= this.bucketArray.length) {
 			throw new Error("Trying to access index out of bounds");
 		}
-		// add key value pair to bucket using its hash(key) to determine index
-		const targetBucket = this.bucketArray[index]
-		if (targetBucket == undefined) {
+		if (this.bucketArray[index] == undefined || !this.bucketArray[index].containKey(key)) {
 			this.currentItems += 1;
-			targetBucket = new LinkedList();
-			targetBucket.append(key, value)
-		} else if (targetBucket.containKey(key)){
+			if (this.bucketArray[index] == undefined){
+				this.bucketArray[index] = new LinkedList();
+			}
 			
+			this.bucketArray[index].append(key, value)
+		} 
+		else if (this.bucketArray[index].containKey(key)){
+			this.bucketArray[index].updateKey(key, value)
 		}
-
-		// if in that bucket the key already exists update the value of the key
-
-		// if bucket has items, but the key is not in bucket utilize linked list to add to the bucket
 
 		// need to grow buckets to double capacity when hash map reachs loadFactor
 
@@ -43,7 +41,9 @@ export class HashMap {
 		// else if (this.currentItems > this.growthLimit){	}
 	}
 
-	get(key) {}
+	get(key) {
+		
+	}
 	has(key) {}
 	remove(key) {}
 	length() {}
@@ -53,10 +53,6 @@ export class HashMap {
 	entries() {}
 }
 
-let hm = new HashMap(0.75, 16);
-
-console.log(hm.hash('Jason'))
-hm.set('Jason', '22')
-
-
-console.log(hm.bucketArray);
+// const hashMap = new HashMap(0.75, 16);
+// // console.log(hashMap.hash('Jason'))
+// console.log(hashMap.hash('Charles'))
