@@ -23,7 +23,7 @@ export class LinkedList {
 		this.headNode = new Node(key, val, prevheadNode);
 	}
 
-    // return true if the value is in list, false else
+	// Added implementation for use in HashMap
 	containKey(k) {
 		if (this.headNode == null) {
 			return false;
@@ -42,18 +42,31 @@ export class LinkedList {
 		}
 	}
 
-    updateKey(keyToUpdate, valueToUpdate){
-        if (this.containKey(keyToUpdate) == false){
-            throw new Error("The key is not in the bucket!");
-        }
-        let currentNode = this.headNode;
-        while (currentNode.key != keyToUpdate){
-            currentNode = currentNode.nextNode 
-        }
-        currentNode.value = valueToUpdate
-    }
+	updateKey(keyToUpdate, valueToUpdate) {
+		if (this.containKey(keyToUpdate) == false) {
+			throw new Error("The key is not in the bucket!");
+		}
+		let currentNode = this.headNode;
+		while (currentNode.key != keyToUpdate) {
+			currentNode = currentNode.nextNode;
+		}
+		currentNode.value = valueToUpdate;
+	}
 
+	// return value of node at index (undefined if list empty)
+	valueAtKey(keyToFind) {
+		if (this.containKey(keyToFind) == false) {
+			throw new Error("The key is not in the bucket!");
+		} else {
+			let currentNode = this.headNode;
+			while (currentNode.key != keyToFind) {
+				currentNode = currentNode.nextNode;
+			}
+			return currentNode.value;
+		}
+	}
 
+	// base LinkedList methods
 	size() {
 		let size = 0;
 		if (this.headNode == null) {
@@ -217,21 +230,21 @@ export class LinkedList {
 
 	// remove node at given index (if index out of bounds throw RangeError)
 	removeAt(index) {
-        if (index < 0 || index >= this.size() || this.headNode == null) {
+		if (index < 0 || index >= this.size() || this.headNode == null) {
 			throw new RangeError("Out of range of linked list!");
 		} else if (index == 0) {
-            this.pop()
-            return
-        } else {
-            let currentIndex = 0;
+			this.pop();
+			return;
+		} else {
+			let currentIndex = 0;
 			let currentNode = this.headNode;
 			while (currentIndex != index - 1) {
 				currentNode = currentNode.nextNode;
 				currentIndex += 1;
 			}
-            const prevIndexNode = currentNode
-            const followingIndexNode = currentNode.nextNode.nextNode
-            prevIndexNode.nextNode = followingIndexNode
-        }
-    }
+			const prevIndexNode = currentNode;
+			const followingIndexNode = currentNode.nextNode.nextNode;
+			prevIndexNode.nextNode = followingIndexNode;
+		}
+	}
 }

@@ -23,16 +23,18 @@ export class HashMap {
 		if (index < 0 || index >= this.bucketArray.length) {
 			throw new Error("Trying to access index out of bounds");
 		}
-		if (this.bucketArray[index] == undefined || !this.bucketArray[index].containKey(key)) {
+		if (
+			this.bucketArray[index] == undefined ||
+			!this.bucketArray[index].containKey(key)
+		) {
 			this.currentItems += 1;
-			if (this.bucketArray[index] == undefined){
+			if (this.bucketArray[index] == undefined) {
 				this.bucketArray[index] = new LinkedList();
 			}
-			
-			this.bucketArray[index].append(key, value)
-		} 
-		else if (this.bucketArray[index].containKey(key)){
-			this.bucketArray[index].updateKey(key, value)
+
+			this.bucketArray[index].append(key, value);
+		} else if (this.bucketArray[index].containKey(key)) {
+			this.bucketArray[index].updateKey(key, value);
 		}
 
 		// need to grow buckets to double capacity when hash map reachs loadFactor
@@ -41,9 +43,19 @@ export class HashMap {
 		// else if (this.currentItems > this.growthLimit){	}
 	}
 
+	// takes one argument as a key and returns the value that is assigned to this key. If a key is not found, return null
 	get(key) {
-		
+		for (const linkedList of this.bucketArray) {
+			if (linkedList != undefined) {
+				if (linkedList.containKey(key)) {
+					return linkedList.valueAtKey(key);
+				}
+			}
+		}
+
+		return null;
 	}
+
 	has(key) {}
 	remove(key) {}
 	length() {}

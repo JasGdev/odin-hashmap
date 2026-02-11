@@ -72,3 +72,16 @@ describe("updateKey() implementation", () => {
 
 	});
 });
+
+describe("valueAtKey() implementation", () => {
+	test("valueAtKey() on a Linked List size 2", () => {
+		list.append("key1", 5);
+		list.append("key2", 7);
+
+        expect(list.valueAtKey("key1")).toEqual(5);
+        expect(list.valueAtKey("key2")).toEqual(7);
+
+		list.updateKey('key2', 1)
+		expect(list.valueAtKey("key2")).toEqual(1);
+	});
+});
