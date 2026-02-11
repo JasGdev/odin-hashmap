@@ -80,6 +80,7 @@ export class HashMap {
 		} else if (this.bucketArray[index].containKey(key)) {
 			return true;
 		}
+		return false
 	}
 
 	remove(key) {
