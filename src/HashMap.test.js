@@ -85,3 +85,23 @@ describe("get(), has() implementation", () => {
         expect(hashMap.has('22')).toBe(false)
 	});
 });
+
+describe("remove() implementation", () => {
+	test("remove on 2 items no collision", () => {
+        const key1 = 'Jason'
+        const key2 = 'Charles'
+		hashMap.set(key1, "22");
+        hashMap.set(key2, "33");
+        expect(hashMap.bucketArray[4].toString()).toBe("( 33 ) -> null")
+        expect(hashMap.bucketArray[11].toString()).toBe("( 22 ) -> null")
+        
+        
+        expect(hashMap.remove(key1)).toBe(true)
+        expect(hashMap.remove(key2)).toBe(true)
+        expect(hashMap.bucketArray[11].toString()).toBe("null")
+        expect(hashMap.bucketArray[4].toString()).toBe("null")
+        expect(hashMap.remove(key2)).toBe(false)
+
+
+	});
+});

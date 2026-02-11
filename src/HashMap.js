@@ -74,12 +74,11 @@ export class HashMap {
 			for (const linkedList of this.bucketArray) {
 			if (linkedList != undefined) {
 				if (linkedList.containKey(key)) {
-					// get index from 
-					// use removeAt(index)
+					linkedList.removeAtKey(key)
+					return true
 				}
 			}
 		}
-			
 		}
 	}
 	length() {}
