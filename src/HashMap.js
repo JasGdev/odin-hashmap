@@ -19,29 +19,43 @@ export class HashMap {
 		return hashCode;
 	}
 
+	growHashMap() {
+		const newHashMap = new HashMap(this.loadFactor, this.currentCapacity * 2);
+		const allEntries = this.entries();
+
+		while (allEntries.length > 0) {
+			const currentEntry = allEntries.pop();
+			const currentKey = currentEntry[0];
+			const currentValue = currentEntry[1];
+			newHashMap.set(currentKey, currentValue);
+		}
+
+		this.currentCapacity = newHashMap.currentCapacity;
+		this.bucketArray = newHashMap.bucketArray;
+	}
+
 	set(key, value) {
 		const index = this.hash(key);
 		if (index < 0 || index >= this.bucketArray.length) {
 			throw new Error("Trying to access index out of bounds");
-		}
-		if (
-			this.bucketArray[index] == undefined ||
-			!this.bucketArray[index].containKey(key)
-		) {
+		} 
+		
+		let bucket = this.bucketArray[index];
+			
+			
+		if (bucket == undefined) {
+			this.bucketArray[index] = new LinkedList();
 			this.currentItems += 1;
-			if (this.bucketArray[index] == undefined) {
-				this.bucketArray[index] = new LinkedList();
-			}
-
 			this.bucketArray[index].append(key, value);
-		} else if (this.bucketArray[index].containKey(key)) {
+		} else if (! bucket.containKey(key)) {
+			this.currentItems += 1;
+			this.bucketArray[index].append(key, value);
+		} else if (bucket.containKey(key)) {
 			this.bucketArray[index].updateKey(key, value);
 		}
-
-		// need to grow buckets to double capacity when hash map reachs loadFactor
-
-		// create new one that is double its size and copy all existing nodes over to the new array, hashing their keys again
-		// else if (this.currentItems > this.growthLimit){	}
+		if (this.currentItems > this.currentCapacity * this.loadFactor) {
+			this.growHashMap();
+		}
 	}
 
 	// takes one argument as a key and returns the value that is assigned to this key. If a key is not found, return null
@@ -54,6 +68,7 @@ export class HashMap {
 		} else if (this.bucketArray[index].containKey(key)) {
 			return this.bucketArray[index].valueAtKey(key);
 		}
+		return null
 	}
 
 	has(key) {
@@ -93,34 +108,30 @@ export class HashMap {
 
 	keys() {
 		let keyArray = [];
-		for (linkedList of this.bucketArray){
-			if (linkedList != undefined){
-				keyArray = keyArray.concat(linkedList.getKeyList())
+		for (linkedList of this.bucketArray) {
+			if (linkedList != undefined) {
+				keyArray = keyArray.concat(linkedList.getKeyList());
 			}
 		}
-		return keyArray
+		return keyArray;
 	}
 
 	values() {
 		let valueArray = [];
-		for (linkedList of this.bucketArray){
-			if (linkedList != undefined){
-				valueArray = valueArray.concat(linkedList.getValueList())
+		for (linkedList of this.bucketArray) {
+			if (linkedList != undefined) {
+				valueArray = valueArray.concat(linkedList.getValueList());
 			}
 		}
-		return valueArray
+		return valueArray;
 	}
 	entries() {
 		let entriesArray = [];
-		for (linkedList of this.bucketArray){
-			if (linkedList != undefined){
-				entriesArray = entriesArray.concat(linkedList.getEntriesList())
+		for (linkedList of this.bucketArray) {
+			if (linkedList != undefined) {
+				entriesArray = entriesArray.concat(linkedList.getEntriesList());
 			}
 		}
-		return entriesArray
+		return entriesArray;
 	}
 }
-
-// const hashMap = new HashMap(0.75, 16);
-// // console.log(hashMap.hash('Jason'))
-// console.log(hashMap.hash('Charles'))

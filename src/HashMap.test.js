@@ -149,8 +149,40 @@ describe("keys(), values(), entries() implementation", () => {
 		expect(hashMap.hash("two")).toBe(12);
 		expect(hashMap.hash("three")).toBe(14);
 
-        expect(hashMap.keys()).toEqual(["one", "two", "three"]);
+		expect(hashMap.keys()).toEqual(["one", "two", "three"]);
 		expect(hashMap.values()).toEqual(["1", "2", "3"]);
-		expect(hashMap.entries()).toEqual([["one", "1"], ["two", "2"], ["three", "3"]]);
+		expect(hashMap.entries()).toEqual([
+			["one", "1"],
+			["two", "2"],
+			["three", "3"],
+		]);
+	});
+});
+
+describe("growHashMap() implementation", () => {
+	test("growHashMap()", () => {
+		hashMap.set("apple", "red");
+		hashMap.set("banana", "yellow");
+		hashMap.set("carrot", "orange");
+		hashMap.set("dog", "brown");
+		hashMap.set("elephant", "gray");
+		hashMap.set("frog", "green");
+		hashMap.set("grape", "purple");
+		hashMap.set("hat", "black");
+		hashMap.set("ice cream", "white");
+		hashMap.set("jacket", "blue");
+		hashMap.set("kite", "pink");
+		hashMap.set("lion", "golden");
+		expect(hashMap.length()).toBe(12);
+        expect(hashMap.currentCapacity).toBe(16);
+        hashMap.set("kite", "gold");
+		hashMap.set("lion", "black");
+        expect(hashMap.length()).toBe(12);
+        expect(hashMap.currentCapacity).toBe(16);
+        console.log(hashMap.bucketArray)
+        hashMap.set('moon', 'silver')
+        expect(hashMap.length()).toBe(13);
+        expect(hashMap.currentCapacity).toBe(32);
+        console.log(hashMap.bucketArray)
 	});
 });
