@@ -15,20 +15,19 @@ export class HashMap {
 		for (let i = 0; i < key.length; i++) {
 			hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.capacity;
 		}
-
 		return hashCode;
 	}
 
 	set(key, value) {
-		const index = hash(key);
-		if (index < 0 || index >= buckets.length) {
+		const index = this.hash(key);
+		if (index < 0 || index >= this.bucketArray.length) {
 			throw new Error("Trying to access index out of bounds");
 		}
 		// add key value pair to bucket using its hash(key) to determine index
 		if (this.bucketArray[index] == undefined) {
 			this.currentItems += 1;
-			this.bucketArray[index] = new Node();
-
+			this.bucketArray[index] = new LinkedList();
+			this.bucketArray[index].append(key, value)
 		}
 
 		// if in that bucket the key already exists update the value of the key
@@ -42,7 +41,7 @@ export class HashMap {
 	}
 
 	get(key) {}
-	hash(key) {}
+	has(key) {}
 	remove(key) {}
 	length() {}
 	clear() {}
@@ -52,6 +51,9 @@ export class HashMap {
 }
 
 let hm = new HashMap(0.75, 16);
+
+console.log(hm.hash('Jason'))
+hm.set('Jason', '22')
 
 
 console.log(hm.bucketArray);

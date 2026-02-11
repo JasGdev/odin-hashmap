@@ -87,7 +87,7 @@ export class LinkedList {
 	}
 
 	// return true if the value is in list, false else
-	contains(val) {
+	containValue(val) {
 		if (this.headNode == null) {
 			return false;
 		} else {
@@ -99,6 +99,25 @@ export class LinkedList {
 				currentNode = currentNode.nextNode;
 			}
 			if (currentNode.value == val) {
+				return true;
+			}
+			return false;
+		}
+	}
+
+    // return true if the value is in list, false else
+	containKey(k) {
+		if (this.headNode == null) {
+			return false;
+		} else {
+			let currentNode = this.headNode;
+			while (currentNode.nextNode !== null) {
+				if (currentNode.key == k) {
+					return true;
+				}
+				currentNode = currentNode.nextNode;
+			}
+			if (currentNode.key == k) {
 				return true;
 			}
 			return false;
