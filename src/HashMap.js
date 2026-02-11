@@ -57,15 +57,14 @@ export class HashMap {
 	}
 
 	has(key) {
-		for (const linkedList of this.bucketArray) {
-			if (linkedList != undefined) {
-				if (linkedList.containKey(key)) {
-					return true;
-				}
-			}
+		const index = this.hash(key);
+		if (index < 0 || index >= this.bucketArray.length) {
+			throw new Error("Trying to access index out of bounds");
+		} else if (this.bucketArray[index] == undefined) {
+			return false;
+		} else if (this.bucketArray[index].containKey(key)) {
+			return true;
 		}
-
-		return false;
 	}
 
 	remove(key) {
