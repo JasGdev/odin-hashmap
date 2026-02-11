@@ -2,7 +2,7 @@ import { LinkedList } from "./LinkedList.js";
 
 export class HashMap {
 	constructor(loadFactor, capacity) {
-		this.defaultCapacity = capacity
+		this.defaultCapacity = capacity;
 		this.loadFactor = loadFactor;
 		this.currentCapacity = capacity;
 		this.bucketArray = new Array(capacity);
@@ -13,7 +13,8 @@ export class HashMap {
 		let hashCode = 0;
 		const primeNumber = 31;
 		for (let i = 0; i < key.length; i++) {
-			hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.currentCapacity;
+			hashCode =
+				(primeNumber * hashCode + key.charCodeAt(i)) % this.currentCapacity;
 		}
 		return hashCode;
 	}
@@ -45,15 +46,14 @@ export class HashMap {
 
 	// takes one argument as a key and returns the value that is assigned to this key. If a key is not found, return null
 	get(key) {
-		for (const linkedList of this.bucketArray) {
-			if (linkedList != undefined) {
-				if (linkedList.containKey(key)) {
-					return linkedList.valueAtKey(key);
-				}
-			}
+		const index = this.hash(key);
+		if (index < 0 || index >= this.bucketArray.length) {
+			throw new Error("Trying to access index out of bounds");
+		} else if (this.bucketArray[index] == undefined) {
+			return null;
+		} else if (this.bucketArray[index].containKey(key)) {
+			return this.bucketArray[index].valueAtKey(key);
 		}
-
-		return null;
 	}
 
 	has(key) {
@@ -69,29 +69,30 @@ export class HashMap {
 	}
 
 	remove(key) {
-		if (!this.has(key)){return false}
-		else {
+		if (!this.has(key)) {
+			return false;
+		} else {
 			for (const linkedList of this.bucketArray) {
-			if (linkedList != undefined) {
-				if (linkedList.containKey(key)) {
-					this.currentItems -= 1; 
-					linkedList.removeAtKey(key)
-					return true
+				if (linkedList != undefined) {
+					if (linkedList.containKey(key)) {
+						this.currentItems -= 1;
+						linkedList.removeAtKey(key);
+						return true;
+					}
 				}
 			}
-		}
 		}
 	}
 
 	length() {
-		return this.currentItems
+		return this.currentItems;
 	}
 	clear() {
-		this.bucketArray = new Array(this.defaultCapacity)
+		this.bucketArray = new Array(this.defaultCapacity);
 		this.currentItems = 0;
 		this.currentCapacity = this.defaultCapacity;
 	}
-	
+
 	keys() {}
 	values() {}
 	entries() {}
