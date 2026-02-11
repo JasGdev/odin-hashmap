@@ -53,7 +53,6 @@ export class LinkedList {
 		currentNode.value = valueToUpdate;
 	}
 
-	// return value of node at index (undefined if list empty)
 	valueAtKey(keyToFind) {
 		if (this.containKey(keyToFind) == false) {
 			throw new Error("The key is not in the bucket!");
@@ -63,6 +62,29 @@ export class LinkedList {
 				currentNode = currentNode.nextNode;
 			}
 			return currentNode.value;
+		}
+	}
+
+	removeAtKey(keyToRemove) {
+		if (this.containKey(keyToRemove) == false) {
+			throw new Error("The key is not in the bucket!");
+		} else {
+			this.removeAt(this.findIndexKey(keyToRemove))
+		} 
+	}
+
+	// return index of first node containing the value, if not found return -1
+	findIndexKey(keyToFind) {
+		if (this.containKey(keyToFind) == false) {
+			throw new Error("The key is not in the bucket!");
+		} else {
+			let currentNode = this.headNode;
+			let index = 0
+			while (currentNode.key != keyToFind) {
+				index += 1;
+				currentNode = currentNode.nextNode;
+			}
+			return index
 		}
 	}
 

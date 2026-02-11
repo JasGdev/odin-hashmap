@@ -85,3 +85,27 @@ describe("valueAtKey() implementation", () => {
 		expect(list.valueAtKey("key2")).toEqual(1);
 	});
 });
+
+describe("findIndexKey() implementation", () => {
+	test("findIndexKey() on a Linked List size 3", () => {
+		list.append("key1", 5);
+		list.append("key2", 7);
+		list.append("key3", 7);
+
+		expect(list.findIndexKey("key3")).toEqual(2);
+		expect(list.findIndexKey("key2")).toEqual(1);
+		expect(list.findIndexKey("key1")).toEqual(0);
+	});
+});
+
+describe("removeAtKey() implementation", () => {
+	test("removeAtKey() on a Linked List size 3", () => {
+		list.append("key1", 1);
+		list.append("key2", 2);
+		list.append("key3", 3);
+		
+		expect(list.toString()).toEqual( "( 1 ) -> ( 2 ) -> ( 3 ) -> null");
+		list.removeAtKey("key3")
+		expect(list.toString()).toEqual( "( 1 ) -> ( 2 ) -> null");
+	});
+});

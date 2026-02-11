@@ -49,7 +49,7 @@ describe("set() implementation", () => {
 	});
 });
 
-describe("get() implementation", () => {
+describe("get(), has() implementation", () => {
 
 	test("get on 2 items no collision", () => {
         const key1 = 'Jason'
@@ -62,6 +62,10 @@ describe("get() implementation", () => {
         expect(hashMap.get(key1)).toBe('22')
         expect(hashMap.get(key2)).toBe('33')
         expect(hashMap.get('Kas')).toBe(null)
+
+        expect(hashMap.has(key1)).toBe(true)
+        expect(hashMap.has(key2)).toBe(true)
+        expect(hashMap.has('22')).toBe(false)
 	});
 
     test("get on 2 items with collision different key", () => {
@@ -75,5 +79,9 @@ describe("get() implementation", () => {
         expect(hashMap.get(key1)).toBe('22')
         expect(hashMap.get(key2)).toBe('33')
         expect(hashMap.get('aaaa')).toBe(null)
+
+        expect(hashMap.has(key1)).toBe(true)
+        expect(hashMap.has(key2)).toBe(true)
+        expect(hashMap.has('22')).toBe(false)
 	});
 });

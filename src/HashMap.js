@@ -56,8 +56,32 @@ export class HashMap {
 		return null;
 	}
 
-	has(key) {}
-	remove(key) {}
+	has(key) {
+		for (const linkedList of this.bucketArray) {
+			if (linkedList != undefined) {
+				if (linkedList.containKey(key)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	remove(key) {
+		if (!this.has(key)){return false}
+		else {
+			for (const linkedList of this.bucketArray) {
+			if (linkedList != undefined) {
+				if (linkedList.containKey(key)) {
+					// get index from 
+					// use removeAt(index)
+				}
+			}
+		}
+			
+		}
+	}
 	length() {}
 	clear() {}
 	keys() {}
