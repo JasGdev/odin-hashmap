@@ -64,22 +64,16 @@ describe("get() implementation", () => {
         expect(hashMap.get('Kas')).toBe(null)
 	});
 
-    test("set 2 items with collision same key", () => {
+    test("get on 2 items with collision different key", () => {
         const key1 = 'Jason'
-		hashMap.set(key1, "22");
-        hashMap.set(key1, "33");
-        expect(hashMap.currentItems).toBe(1);
-        expect(hashMap.bucketArray[11].toString()).toBe("( 33 ) -> null")
+        const key2 = 'nosaj'
+        
+        hashMap.set(key1, "22");
+        hashMap.set(key2, "33");
 
+        expect(hashMap.bucketArray[11].toString()).toBe("( 22 ) -> ( 33 ) -> null")
+        expect(hashMap.get(key1)).toBe('22')
+        expect(hashMap.get(key2)).toBe('33')
+        expect(hashMap.get('aaaa')).toBe(null)
 	});
-
-    // test("set 2 items with collision different key", () => {
-    //     const key1 = 'Jason'
-    //     const key2 = 'nosaj'
-    //     expect(hashMap.hash(key1) === hashMap.hash(key2)).toBe(true);
-    //     hashMap.set(key1, "22");
-    //     hashMap.set(key2, "33");
-    //     expect(hashMap.currentItems).toBe(2);
-    //     expect(hashMap.bucketArray[11].toString()).toBe("( 22 ) -> ( 33 ) -> null")
-	// });
 });
