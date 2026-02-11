@@ -23,6 +23,37 @@ export class LinkedList {
 		this.headNode = new Node(key, val, prevheadNode);
 	}
 
+    // return true if the value is in list, false else
+	containKey(k) {
+		if (this.headNode == null) {
+			return false;
+		} else {
+			let currentNode = this.headNode;
+			while (currentNode.nextNode !== null) {
+				if (currentNode.key == k) {
+					return true;
+				}
+				currentNode = currentNode.nextNode;
+			}
+			if (currentNode.key == k) {
+				return true;
+			}
+			return false;
+		}
+	}
+
+    updateKey(keyToUpdate, valueToUpdate){
+        if (this.containKey(keyToUpdate) == false){
+            throw new Error("The key is not in the bucket!");
+        }
+        let currentNode = this.headNode;
+        while (currentNode.key != keyToUpdate){
+            currentNode = currentNode.nextNode 
+        }
+        currentNode.value = valueToUpdate
+    }
+
+
 	size() {
 		let size = 0;
 		if (this.headNode == null) {
@@ -99,25 +130,6 @@ export class LinkedList {
 				currentNode = currentNode.nextNode;
 			}
 			if (currentNode.value == val) {
-				return true;
-			}
-			return false;
-		}
-	}
-
-    // return true if the value is in list, false else
-	containKey(k) {
-		if (this.headNode == null) {
-			return false;
-		} else {
-			let currentNode = this.headNode;
-			while (currentNode.nextNode !== null) {
-				if (currentNode.key == k) {
-					return true;
-				}
-				currentNode = currentNode.nextNode;
-			}
-			if (currentNode.key == k) {
 				return true;
 			}
 			return false;

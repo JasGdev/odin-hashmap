@@ -24,10 +24,13 @@ export class HashMap {
 			throw new Error("Trying to access index out of bounds");
 		}
 		// add key value pair to bucket using its hash(key) to determine index
-		if (this.bucketArray[index] == undefined) {
+		const targetBucket = this.bucketArray[index]
+		if (targetBucket == undefined) {
 			this.currentItems += 1;
-			this.bucketArray[index] = new LinkedList();
-			this.bucketArray[index].append(key, value)
+			targetBucket = new LinkedList();
+			targetBucket.append(key, value)
+		} else if (targetBucket.containKey(key)){
+			
 		}
 
 		// if in that bucket the key already exists update the value of the key
