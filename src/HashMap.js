@@ -95,13 +95,30 @@ export class HashMap {
 		let keyArray = [];
 		for (linkedList of this.bucketArray){
 			if (linkedList != undefined){
-				keyArray.push(linkedList.getKeyList())
+				keyArray = keyArray.concat(linkedList.getKeyList())
 			}
 		}
+		return keyArray
 	}
 
-	values() {}
-	entries() {}
+	values() {
+		let valueArray = [];
+		for (linkedList of this.bucketArray){
+			if (linkedList != undefined){
+				valueArray = valueArray.concat(linkedList.getValueList())
+			}
+		}
+		return valueArray
+	}
+	entries() {
+		let entriesArray = [];
+		for (linkedList of this.bucketArray){
+			if (linkedList != undefined){
+				entriesArray = entriesArray.concat(linkedList.getEntriesList())
+			}
+		}
+		return entriesArray
+	}
 }
 
 // const hashMap = new HashMap(0.75, 16);
