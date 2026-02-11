@@ -71,14 +71,13 @@ export class HashMap {
 		if (!this.has(key)) {
 			return false;
 		} else {
-			for (const linkedList of this.bucketArray) {
-				if (linkedList != undefined) {
-					if (linkedList.containKey(key)) {
-						this.currentItems -= 1;
-						linkedList.removeAtKey(key);
-						return true;
-					}
-				}
+			const index = this.hash(key);
+			if (index < 0 || index >= this.bucketArray.length) {
+				throw new Error("Trying to access index out of bounds");
+			} else if (this.bucketArray[index].containKey(key)) {
+				this.currentItems -= 1;
+				this.bucketArray[index].removeAtKey(key);
+				return true;
 			}
 		}
 	}
